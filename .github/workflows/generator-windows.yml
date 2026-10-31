@@ -145,6 +145,20 @@ jobs:
           repository: rustdesk/rustdesk
           submodules: recursive
 
+      # PolTraders: diseño de PolTraders Academy (negro y dorado, vidrio, fondo animado de velas).
+      # Se aplica sobre el código de RustDesk recién bajado; si algo no encaja, la fabricación se detiene aquí.
+      - name: Checkout PolTraders UI
+        uses: actions/checkout@v4
+        with:
+          path: poltraders-ui-src
+          sparse-checkout: poltraders-ui
+
+      - name: Apply PolTraders UI
+        shell: bash
+        run: |
+          python3 poltraders-ui-src/poltraders-ui/apply.py .
+          rm -rf poltraders-ui-src
+
       - name: Set custom app version
         continue-on-error: true
         if: ${{ inputs.app_version != '' }}
