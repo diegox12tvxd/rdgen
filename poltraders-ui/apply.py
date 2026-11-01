@@ -166,6 +166,25 @@ def main():
          '                        ),\n'),
         ('            decoration: BoxDecoration(color: MyTheme.accent),\n',
          f'            decoration: const {GOLD_BAR},\n'),
+        # Sin la tarjeta que pide instalar la app: PolTraders Soporte se usa sin instalar
+        ('      if (!bind.mainIsInstalled()) {\n'
+         '        return buildInstallCard(\n'
+         '            "", bind.isOutgoingOnly() ? "" : "install_tip", "Install",\n'
+         '            () async {\n'
+         '          await rustDeskWinManager.closeAllSubWindows();\n'
+         '          bind.mainGotoInstall();\n'
+         '        });\n'
+         '      } else if (bind.mainIsInstalledLowerVersion()) {\n',
+         '      if (bind.mainIsInstalled() && bind.mainIsInstalledLowerVersion()) {\n'),
+        # Los avisos que quedan, en dorado oscuro en lugar de rosa
+        ('                colors: [\n'
+         '                  Color.fromARGB(255, 226, 66, 188),\n'
+         '                  Color.fromARGB(255, 244, 114, 124),\n'
+         '                ],\n',
+         '                colors: [\n'
+         '                  Color(0xFF3A2E17),\n'
+         '                  Color(0xFF15110C),\n'
+         '                ],\n'),
     ])
 
     # Tarjeta "Controlar escritorio remoto": vidrio y botón Conectar dorado
